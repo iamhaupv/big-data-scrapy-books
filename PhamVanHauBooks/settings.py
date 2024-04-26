@@ -62,9 +62,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "PhamVanHauBooks.pipelines.PhamvanhaubooksPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "PhamVanHauBooks.pipelines.PhamvanhaubooksPipeline": 300,
+   "PhamVanHauBooks.pipelines.JsonDBUnitopPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

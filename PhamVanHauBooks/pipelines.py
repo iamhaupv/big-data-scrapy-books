@@ -11,3 +11,13 @@ from itemadapter import ItemAdapter
 class PhamvanhaubooksPipeline:
     def process_item(self, item, spider):
         return item
+
+import json
+
+class JsonDBUnitopPipeline:
+    def process_item(self, item, spider):
+        self.file = open('jsondataunitop.json','a',encoding='utf-8')
+        line = json.dumps(dict(item), ensure_ascii=False) + '\n'
+        self.file.write(line)
+        self.file.close
+        return item
