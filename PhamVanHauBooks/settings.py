@@ -9,6 +9,9 @@
 
 BOT_NAME = "PhamVanHauBooks"
 
+MONGO_URI = 'mongodb+srv://phamvanhau692002vip:phamvanhau@cluster0.v9el5nr.mongodb.net/bigdata-unitop?retryWrites=true&w=majority&appName=Cluster0'
+MONGO_DATABASE = 'books'
+
 SPIDER_MODULES = ["PhamVanHauBooks.spiders"]
 NEWSPIDER_MODULE = "PhamVanHauBooks.spiders"
 
@@ -65,6 +68,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    "PhamVanHauBooks.pipelines.PhamvanhaubooksPipeline": 300,
    "PhamVanHauBooks.pipelines.JsonDBUnitopPipeline": 300,
+   "PhamVanHauBooks.pipelines.MongoDBUnitopPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
