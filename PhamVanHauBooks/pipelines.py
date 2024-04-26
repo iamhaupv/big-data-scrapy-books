@@ -51,3 +51,67 @@ class MongoDBUnitopPipeline:
             return item
         except Exception as e:
             raise DropItem(f"Error inserting item: {e}")
+
+import mysql.connector
+
+class MySQLNoDuplicatesPipeline:
+
+    def __init__(self):
+        self.conn = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '123456789',
+            database = 'book'
+        )
+
+        ## Create cursor, used to execute commands
+        self.cur = self.conn.cursor()
+        
+        ## Create quotes table if none exists
+        self.cur.execute("""
+        CREATE TABLE IF NOT EXISTS books(
+            id int NOT NULL auto_increment, 
+            bookURL text,
+            img text,
+            name text,
+            price text,
+            rating text,
+            PRIMARY KEY (id)
+        )
+        """)
+
+
+
+    def process_item(self, item, spider):
+
+        ## Check to see if courseURL is already in database 
+        self.cur.execute("select * from books where bookURL = %s", (item['bookURL'],))
+        result = self.cur.fetchone()
+
+        ## If it is in DB, create log message
+        if result:
+            spider.logger.warn("Item already in database: %s" % item['bookURL'])
+
+
+        ## If text isn't in the DB, insert data
+        else:
+
+            ## Define insert statement
+            self.cur.execute(""" insert into books (bookURL, img, name, price, rating) values (%s,%s,%s,%s,%s)""", (
+                item["bookURL"],
+                item["img"],
+                item["name"],
+                item["price"],
+                item["rating"],
+            ))
+
+            ## Execute insert of data into database
+            self.conn.commit()
+        return item
+
+    
+    def close_spider(self, spider):
+
+        ## Close cursor & connection to database 
+        self.cur.close()
+        self.conn.close()
