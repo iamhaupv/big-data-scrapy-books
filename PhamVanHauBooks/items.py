@@ -6,5 +6,9 @@
 import scrapy
 
 
-class PhamvanhaubooksItem(scrapy.Item):
-    bookURL = scrapy.Fiedld()
+class PhamVanHauBooksItem(scrapy.Item):
+    bookURL = scrapy.Field()
+    img = scrapy.Field()
+    rating = scrapy.Field()
+    name = scrapy.Field()
+    price = scrapy.Field()
