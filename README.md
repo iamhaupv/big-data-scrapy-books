@@ -8,3 +8,5 @@ Link để cào dữ liệu https://books.toscrape.com/
 <img src = 'https://i.imgur.com/2DmLnek.png'/>
 <br/>
 <img src = 'https://i.imgur.com/02LItiJ.png'/>
+<br/>
+<img src = 'https://i.imgur.com/YClOpmA.png'/>
