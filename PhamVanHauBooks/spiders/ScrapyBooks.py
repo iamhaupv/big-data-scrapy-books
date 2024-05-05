@@ -25,6 +25,24 @@ class ScrapybooksSpider(scrapy.Spider):
         item['name'] = response.css('h1::text').get()
         item['price'] = response.css('p.price_color::text').get()
         item['img'] = response.css('div.item.active img::attr(src)').get()
+        # Trích xuất thông tin số lượng tồn kho
+        stock_label = response.xpath('//th[text()="Availability"]/following-sibling::td/text()').get()
+        item['stock'] = stock_label.strip() if stock_label else None
+        # Trích xuất số lượng đánh giá
+        review_label = response.xpath('//th[text()="Number of reviews"]/following-sibling::td/text()').get()
+        item['number_of_reviews'] = int(review_label.strip()) if review_label else 0
+
+         # Trích xuất UPC
+        upc_label = response.xpath('//th[text()="UPC"]/following-sibling::td/text()').get()
+        item['upc'] = upc_label.strip() if upc_label else None
+
+        # Trích xuất loại sản phẩm
+        product_type_label = response.xpath('//th[text()="Product Type"]/following-sibling::td/text()').get()
+        item['product_type'] = product_type_label.strip() if product_type_label else None
+
+
+        item['title'] = response.css('div.col-sm-6.product_main h1::text').get()
+
         # Trích xuất phần tử p có class chứa thông tin về số lượng sao
         star_element = response.xpath('//p[contains(@class, "star-rating")]')
         

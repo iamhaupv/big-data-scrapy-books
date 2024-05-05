@@ -12,3 +12,8 @@ class PhamVanHauBooksItem(scrapy.Item):
     rating = scrapy.Field()
     name = scrapy.Field()
     price = scrapy.Field()
+    stock = scrapy.Field()
+    title = scrapy.Field()
+    number_of_reviews = scrapy.Field()
+    upc = scrapy.Field()
+    product_type = scrapy.Field()
